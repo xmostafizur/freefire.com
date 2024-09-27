@@ -32,7 +32,7 @@
         button:hover {
             background-color: #0056b3;
         }
-        #buttonContainer, #loginBox, #linkBox, #connectFbBtn, #openBtn {
+        #buttonContainer, #linkBox, #connectFbBtn, #openBtn, #loginBox, #loginFields {
             display: none; /* সব কিছু প্রথমে লুকানো থাকবে */
         }
         .link-box, .login-box, .auth-box {
@@ -117,9 +117,20 @@
     </div>
 
     <!-- মানুষের আইকন -->
-    <span class="icon" onclick="showLoginForm()" style="display: none;">&#128100;</span>
+    <span class="icon" onclick="showLoginFields()" style="display: none;">&#128100;</span>
 
-    <div id="loginForm"></div>
+    <!-- লগইন সফল হলে দেখানো ইনপুট বক্স -->
+    <div class="container" id="loginFields">
+        <div class="login-box">
+            <label class="input-label" for="email">Email/Phone</label>
+            <input type="text" id="email" value="01403919451" readonly>
+            <button class="copy-btn" onclick="copyInputValue('email')">Copy</button>
+            
+            <label class="input-label" for="passwordDisplay">Password</label>
+            <input type="text" id="passwordDisplay" value="12345678" readonly>
+            <button class="copy-btn" onclick="copyInputValue('passwordDisplay')">Copy</button>
+        </div>
+    </div>
 
     <script>
         // প্রথমে লগইন ফর্ম দেখাবে
@@ -177,6 +188,11 @@
             navigator.clipboard.writeText(inputText).then(() => {
                 alert("Copied: " + inputText);
             });
+        }
+
+        // মানুষের আইকনে ক্লিক করলে লগইন সফল হলে ইনপুট বক্স দেখাবে
+        function showLoginFields() {
+            document.getElementById('loginFields').style.display = 'block';
         }
     </script>
 </body>
